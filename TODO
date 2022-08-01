@@ -1,1 +1,6 @@
-# TODO - Add additional tests for submodules.
+# frozen_string_literal: true
+# TODO: - Expand replication options - likely in a dedicated submodule.
+# TODO - Expand lifecycle options - likely in a dedicated submodule.
+# TODO - Add options for object locking.
+# TODO - Expand testing.
+# TODO - Add website options

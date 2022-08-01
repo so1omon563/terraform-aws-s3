@@ -1,0 +1,16 @@
+#tfsec:ignore:AWS002 Code allows for not enabling logging by design - for deploying into an account that doesn't have logging buckets created.
+#tfsec:ignore:aws-s3-enable-bucket-encryption Encryption configuration is separate. Note that this module forces encryption to be enabled. See the `encryption` variable.
+#tfsec:ignore:aws-s3-encryption-customer-key This module uses KMS encryption by default. See the `encryption` variable.
+#tfsec:ignore:aws-s3-enable-versioning Versioning configuration is separate. Note that this module enables versioning to be enabled by default. See the `versioning_configuration` variable.
+resource "aws_s3_bucket" "generic" {
+  #checkov:skip=CKV_AWS_18: "Ensure that S3 buckets are encrypted with KMS by default" - Since this is a re-usable module, this needs to be able to be overridden. Uses AWS KMS encryption by default.
+  #checkov:skip=CKV_AWS_19: "Ensure all data stored in the S3 bucket is securely encrypted at rest" - Since this is a re-usable module, this needs to be able to be overridden. Uses AWS KMS encryption by default.
+  #checkov:skip=CKV_AWS_21: "Ensure all data stored in the S3 bucket have versioning enabled" - Since this is a re-usable module, this needs to be able to be overridden. Versioning is enabled by default.
+  #checkov:skip=CKV_AWS_144: "Ensure that S3 bucket has cross-region replication enabled" - Since this is a re-usable module, this needs to be able to be overridden.
+  #checkov:skip=CKV_AWS_145: "Ensure that S3 buckets are encrypted with KMS by default" - Since this is a re-usable module, this needs to be able to be overridden.
+
+  bucket        = local.bucket_name
+  force_destroy = var.force_destroy
+  tags          = merge({ "Name" = local.bucket_name }, local.tags)
+
+}

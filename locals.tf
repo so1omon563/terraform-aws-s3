@@ -1,6 +1,18 @@
 locals {
-  tags = var.tags
+  tags       = var.tags
+  region     = data.aws_region.current.id
+  account_id = data.aws_caller_identity.current.account_id
 
-  name       = var.topic_name_override != null ? var.topic_name_override : var.topic_prefix == null ? format("%s", var.name) : format("%s-%s", var.name, var.topic_prefix)
-  topic_name = var.fifo_topic ? format("%s.fifo", local.name) : local.name
+  encryption_defaults = {
+    use_kms         = true
+    use_bucket_keys = false
+  }
+  encryption = merge(local.encryption_defaults, var.encryption)
+
+  oai               = var.enable_oai ? { enabled = "ignore" } : {}
+  s3_logging_bucket = var.s3_logging_bucket != null ? { enabled = var.s3_logging_bucket } : {}
+  accelerate_status = var.accelerate_status != null ? { enabled = var.accelerate_status } : {}
+
+
+  bucket_name = var.bucket_name_override != null ? var.bucket_name_override : var.bucket_prefix == null ? format("%s-%s-%s", var.name, local.region, local.account_id) : format("%s-%s-%s-%s", var.name, var.bucket_prefix, local.region, local.account_id)
 }

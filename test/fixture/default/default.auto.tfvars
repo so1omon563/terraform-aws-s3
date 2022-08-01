@@ -1,7 +1,7 @@
-name = "kitchen-default-example"
+name = "kitchen-default-s3"
 
-topic_prefix        = "prefix-example"
-topic_name_override = "kitchen-override-example"
+bucket_prefix        = "prefix-example-s3"
+bucket_name_override = "kitchen-override-example-s3"
 
 tags = {
   environment = "dev"
