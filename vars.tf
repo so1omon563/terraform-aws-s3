@@ -14,6 +14,12 @@ variable "bucket_name_override" {
   default     = null
 }
 
+variable "bucket_policy" {
+  description = "Optional bucket policy in JSON format. Although this is a bucket policy rather than an IAM policy, the [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) data source may be used, so long as it specifies a principal. For more information about building AWS IAM policy documents with Terraform, see the [AWS IAM Policy Document Guide](https://learn.hashicorp.com/tutorials/terraform/aws-iam-policy?_ga=2.150865718.1068941414.1658759740-2145690310.1655932481). Note: Bucket policies are limited to 20 KB in size."
+  type        = string
+  default     = null
+}
+
 variable "bucket_prefix" {
   description = "Bucket name prefix, will be pre-pended to AWS account ID and region to make bucket unique"
   type        = string
@@ -167,28 +173,17 @@ variable "name" {
   description = "Short, descriptive name of the environment. All resources will be named using this value as a prefix."
 }
 
-variable "replication_configuration" {
-  description = "Map of properties for an optional set of replication rules. See [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) for more info. Note that values are required for all objects, even if the value is `null`."
-  type = list(object({
-    role = string
-    rules = list(object({
-      id     = string
-      prefix = string
-      status = string
-      destination = list(object({
-        bucket             = string
-        storage_class      = string
-        replica_kms_key_id = string
-        account_id         = string
-        access_control_translation = list(object({
-          owner = string
-        }))
-      }))
-      source_selection_criteria = list(object({
-        enabled = string
-      }))
-    }))
-  }))
+variable "object_lock_configuration" {
+  description = "Map of properties for an optional object lock configuration. See [Object Lock Configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object_lock_configuration) for more info. If using this variable, all values must be populated, even if that value is `null`."
+  type = object({
+    days  = number
+    mode  = string
+    years = number
+  })
+  validation {
+    condition     = var.object_lock_configuration == null ? true : contains(["COMPLIANCE", "GOVERNANCE"], var.object_lock_configuration.mode)
+    error_message = "Valid values for mode are limited to (COMPLIANCE, GOVERNANCE)."
+  }
   default = null
 }
 

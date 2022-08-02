@@ -74,6 +74,20 @@ module "oai" {
   bucket   = aws_s3_bucket.generic.bucket
 }
 
+module "object_locking" {
+  for_each                  = local.object_lock_configuration
+  source                    = "./modules/object_locking"
+  bucket                    = aws_s3_bucket.generic.bucket
+  object_lock_configuration = each.value
+}
+
+module "policy" {
+  for_each = local.bucket_policy
+  source   = "./modules/policy"
+  bucket   = aws_s3_bucket.generic.bucket
+  policy   = each.value
+}
+
 module "request_payer" {
   source                = "./modules/request_payer"
   bucket                = aws_s3_bucket.generic.bucket

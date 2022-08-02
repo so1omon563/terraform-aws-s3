@@ -2,7 +2,7 @@
 
 Creates an S3 bucket using configuration resources introduced in provider version 4.0.
 
-Can specify CORS and lifecycle policies as well as basic replication configuration, including creating an OAI for CloudFront.
+Can specify CORS and lifecycle policies, including creating an OAI for CloudFront.
 
 This module enables encyption (either AES256 or KMS) and versioning by default.
 
@@ -17,11 +17,17 @@ Examples for use can be found under the [examples](https://github.com/so1omon563
 
 - It is not possible to create an unencrypted S3 bucket with this module. This is by design.
 
+- This module does not support website configurations. For website option, look into using the [aws_s3_bucket_website_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_website_configuration) resource directly.
+
+- This module does not currently support replication configuration. For replication options, look into using the [aws_s3_bucket_replication](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_replication) resource directly.
+
 - Only 1 lifecycle rule can be created in this module. If additional rules are needed, bypass the `lifecycle_*` variables and use the `lifecycle` module directly, which will allow you to leverage `for_each` at the module level to pass in multiple rules.
 
 - It is only possible to use canned ACLs with this module at this time.
 
 - Can only specify simple logging directly in this module. Additional grants etc. can be used by bypassing the `s3_logging_bucket` variable and using the `logging` submodule instead.
+
+- Can not add object locking to existing buckets. This is largely a limitation of AWS, since it requires a token from AWS support. See [aws_s3_bucket_object_lock_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object_lock_configuration) for more information.
 
 ## Outputs problem
 
@@ -56,6 +62,8 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 | <a name="module_lifecycle"></a> [lifecycle](#module\_lifecycle) | ./modules/lifecycle | n/a |
 | <a name="module_logging"></a> [logging](#module\_logging) | ./modules/logging | n/a |
 | <a name="module_oai"></a> [oai](#module\_oai) | ./modules/oai | n/a |
+| <a name="module_object_locking"></a> [object\_locking](#module\_object\_locking) | ./modules/object_locking | n/a |
+| <a name="module_policy"></a> [policy](#module\_policy) | ./modules/policy | n/a |
 | <a name="module_request_payer"></a> [request\_payer](#module\_request\_payer) | ./modules/request_payer | n/a |
 | <a name="module_versioning"></a> [versioning](#module\_versioning) | ./modules/versioning | n/a |
 
@@ -73,6 +81,7 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 |------|-------------|------|---------|:--------:|
 | <a name="input_accelerate_status"></a> [accelerate\_status](#input\_accelerate\_status) | Sets the the transfer acceleration state of the bucket. Can be `Enabled` or `Suspended`. | `string` | `null` | no |
 | <a name="input_bucket_name_override"></a> [bucket\_name\_override](#input\_bucket\_name\_override) | Used if there is a need to specify a bucket name outside of the standardized nomenclature. For example, if importing a bucket that doesn't follow the standard naming formats. | `string` | `null` | no |
+| <a name="input_bucket_policy"></a> [bucket\_policy](#input\_bucket\_policy) | Optional bucket policy in JSON format. Although this is a bucket policy rather than an IAM policy, the [aws\_iam\_policy\_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) data source may be used, so long as it specifies a principal. For more information about building AWS IAM policy documents with Terraform, see the [AWS IAM Policy Document Guide](https://learn.hashicorp.com/tutorials/terraform/aws-iam-policy?_ga=2.150865718.1068941414.1658759740-2145690310.1655932481). Note: Bucket policies are limited to 20 KB in size. | `string` | `null` | no |
 | <a name="input_bucket_prefix"></a> [bucket\_prefix](#input\_bucket\_prefix) | Bucket name prefix, will be pre-pended to AWS account ID and region to make bucket unique | `string` | `null` | no |
 | <a name="input_canned_acl"></a> [canned\_acl](#input\_canned\_acl) | The canned ACL to use for the bucket. Note that the default is `private`, which will also add a (public access block)[https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block] to the bucket. | `string` | `"private"` | no |
 | <a name="input_cors_rules"></a> [cors\_rules](#input\_cors\_rules) | Map of properties for optional CORS rules. See [aws\_s3\_bucket\_cors\_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_cors_configuration) for more info. Note that values are required for all objects, even if the value is `null`. | <pre>list(object({<br>    allowed_headers = list(string)<br>    allowed_methods = list(string)<br>    allowed_origins = list(string)<br>    expose_headers  = list(string)<br>    id              = string<br>    max_age_seconds = number<br>  }))</pre> | `null` | no |
@@ -90,7 +99,7 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 | <a name="input_lifecycle_rule"></a> [lifecycle\_rule](#input\_lifecycle\_rule) | Properties for an optional lifecycle rule. See [aws\_s3\_bucket\_lifecycle\_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration) for more info. If using this variable, all values must be populated, even if that value is `null`. | <pre>object({<br>    id      = string<br>    enabled = bool<br>  })</pre> | `null` | no |
 | <a name="input_lifecycle_transition"></a> [lifecycle\_transition](#input\_lifecycle\_transition) | Specifies when an object transitions to a specified storage class. See [Transition](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration#transition) for more info. If using this variable, all values must be populated, even if that value is `null`. | <pre>object({<br>    date          = string<br>    days          = number<br>    storage_class = string<br>  })</pre> | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | Short, descriptive name of the environment. All resources will be named using this value as a prefix. | `string` | n/a | yes |
-| <a name="input_replication_configuration"></a> [replication\_configuration](#input\_replication\_configuration) | Map of properties for an optional set of replication rules. See [aws\_s3\_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) for more info. Note that values are required for all objects, even if the value is `null`. | <pre>list(object({<br>    role = string<br>    rules = list(object({<br>      id     = string<br>      prefix = string<br>      status = string<br>      destination = list(object({<br>        bucket             = string<br>        storage_class      = string<br>        replica_kms_key_id = string<br>        account_id         = string<br>        access_control_translation = list(object({<br>          owner = string<br>        }))<br>      }))<br>      source_selection_criteria = list(object({<br>        enabled = string<br>      }))<br>    }))<br>  }))</pre> | `null` | no |
+| <a name="input_object_lock_configuration"></a> [object\_lock\_configuration](#input\_object\_lock\_configuration) | Map of properties for an optional object lock configuration. See [Object Lock Configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object_lock_configuration) for more info. If using this variable, all values must be populated, even if that value is `null`. | <pre>object({<br>    days  = number<br>    mode  = string<br>    years = number<br>  })</pre> | `null` | no |
 | <a name="input_request_payer"></a> [request\_payer](#input\_request\_payer) | Specifies who should bear the cost of Amazon S3 data transfer. Can be either `BucketOwner` or `Requester`. By default, the owner of the S3 bucket would incur the costs of any data transfer. See [Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysBuckets.html) developer guide for more information. | `map(string)` | <pre>{<br>  "expected_bucket_owner": null,<br>  "request_payer": "BucketOwner"<br>}</pre> | no |
 | <a name="input_s3_logging_bucket"></a> [s3\_logging\_bucket](#input\_s3\_logging\_bucket) | The name of the S3 bucket to log S3 access to. Will be passed to the `logging` submodule. If not provided, logging will be disabled. For additional logging options, bypass this variable, and call the submodule directly. | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tag names and values for tags to apply to all taggable resources created by the module. Default value is a blank map to allow for using Default Tags in the provider. | `map(string)` | `{}` | no |
@@ -108,6 +117,8 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 | <a name="output_lifecycle_module"></a> [lifecycle\_module](#output\_lifecycle\_module) | A map of properties for the created lifecycle configuration. |
 | <a name="output_logging_module"></a> [logging\_module](#output\_logging\_module) | A map of properties for the created logging configuration. |
 | <a name="output_oai_module"></a> [oai\_module](#output\_oai\_module) | A map of properties for the created origin access identity. |
+| <a name="output_object_locking_module"></a> [object\_locking\_module](#output\_object\_locking\_module) | A map of properties for the object locking configuration. |
+| <a name="output_policy_module"></a> [policy\_module](#output\_policy\_module) | A map of properties for the created bucket policy. |
 | <a name="output_request_payer_module"></a> [request\_payer\_module](#output\_request\_payer\_module) | A map of properties for the request payer configuration. |
 | <a name="output_versioning_module"></a> [versioning\_module](#output\_versioning\_module) | A map of properties for the created versioning configuration. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

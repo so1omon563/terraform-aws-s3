@@ -41,6 +41,16 @@ output "oai_module" {
   description = "A map of properties for the created origin access identity."
 }
 
+output "object_locking_module" {
+  value       = module.object_locking
+  description = "A map of properties for the object locking configuration."
+}
+
+output "policy_module" {
+  value       = module.policy
+  description = "A map of properties for the created bucket policy."
+}
+
 output "request_payer_module" {
   value       = module.request_payer
   description = "A map of properties for the request payer configuration."

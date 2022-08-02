@@ -1,7 +1,9 @@
-# TODO - Expand replication options.
-# TODO - Add options for object locking.
-# TODO - Expand testing.
-# TODO - Add website options
+# TODO - Expand testing
 
 # TODO - Update variable documentation to include local default values
-# TODO - Expand ACLs to accept more than canned ACLs.
+
+# TODO - Expand ACLs to accept more than canned ACLs
+
+# TODO - Add validation to variable wherever possible
+
+# TODO - Add replication options
