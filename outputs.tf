@@ -11,6 +11,16 @@ output "accelerate_module" {
   description = "A map of properties for the created accelerate configuration."
 }
 
+output "acl_module" {
+  value       = module.acl
+  description = "A map of properties for the bucket's canned ACL configuration."
+}
+
+output "cors_module" {
+  value       = module.cors
+  description = "A map of properties for the bucket's CORS configuration."
+}
+
 output "encryption_module" {
   value       = module.encryption
   description = "A map of properties for the bucket's encryption configuration."

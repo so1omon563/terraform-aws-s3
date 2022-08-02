@@ -10,6 +10,7 @@ locals {
   encryption = merge(local.encryption_defaults, var.encryption)
 
   accelerate_status = var.accelerate_status != null ? { enabled = var.accelerate_status } : {}
+  cors_rules        = var.cors_rules != null ? { enabled = var.cors_rules } : {}
   lifecycle_rule    = var.lifecycle_rule != null ? { enabled = var.lifecycle_rule } : {}
   oai               = var.enable_oai ? { enabled = "ignore" } : {}
   s3_logging_bucket = var.s3_logging_bucket != null ? { enabled = var.s3_logging_bucket } : {}

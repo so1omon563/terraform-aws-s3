@@ -79,6 +79,23 @@ module "generic-s3-options" {
     days          = 180
     storage_class = "GLACIER"
   }
+  cors_rules = [{
+    allowed_headers = ["*"]
+    allowed_methods = ["GET", "PUT", "POST", "DELETE", "HEAD"]
+    allowed_origins = ["*"]
+    expose_headers  = ["ETag"]
+    id              = null
+    max_age_seconds = 3000
+    },
+    {
+      allowed_headers = null
+      allowed_methods = ["GET"]
+      allowed_origins = ["*"]
+      expose_headers  = null
+      id              = "test"
+      max_age_seconds = 3000
+  }]
 }
+
 
 output "generic-s3-options" { value = module.generic-s3-options }

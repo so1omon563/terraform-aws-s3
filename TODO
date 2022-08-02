@@ -1,6 +1,7 @@
 # TODO - Expand replication options.
-# TODO - Configure lifecycle options to not require all values in objects. Merged maps perhaps.
 # TODO - Add options for object locking.
 # TODO - Expand testing.
 # TODO - Add website options
+
 # TODO - Update variable documentation to include local default values
+# TODO - Expand ACLs to accept more than canned ACLs.

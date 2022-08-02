@@ -11,11 +11,25 @@ terraform {
   }
 }
 
+module "acl" {
+  source = "./modules/acl"
+
+  bucket     = aws_s3_bucket.generic.bucket
+  canned_acl = var.canned_acl
+}
+
 module "accelerate" {
   for_each = local.accelerate_status
   source   = "./modules/accelerate"
   bucket   = aws_s3_bucket.generic.id
   status   = each.value
+}
+
+module "cors" {
+  for_each   = local.cors_rules
+  source     = "./modules/cors"
+  bucket     = aws_s3_bucket.generic.bucket
+  cors_rules = each.value
 }
 
 module "encryption" {

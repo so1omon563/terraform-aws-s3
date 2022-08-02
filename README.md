@@ -7,7 +7,7 @@ Can specify CORS and lifecycle policies as well as basic replication configurati
 This module enables encyption (either AES256 or KMS) and versioning by default.
 
 All functionality outside of creating the bucket is handed off to submodules under the [modules](https://github.com/so1omon563/terraform-aws-s3/tree/main/modules) directory.
-All of these submodules can also be used independently to handle configuration of existing buckets.
+As a result, all of these submodules can also be used independently to handle configuration of existing buckets.
 
 Additional features to come. See the [TODO](https://github.com/so1omon563/terraform-aws-s3/tree/main/TODO) for more information. Feature requests and additional contribution requests are welcome, per the [CONTRIBUTING](https://github.com/so1omon563/terraform-aws-s3/tree/main/CONTRIBUTING.md) guidelines.
 
@@ -17,7 +17,7 @@ Examples for use can be found under the [examples](https://github.com/so1omon563
 
 - It is not possible to create an unencrypted S3 bucket with this module. This is by design.
 
-- Only 1 lifecycle rule can be created in this module. If additional rules are needed, bypass the `lifecycle_*` variables and use the `lifecycle` module directly with `for_each`.
+- Only 1 lifecycle rule can be created in this module. If additional rules are needed, bypass the `lifecycle_*` variables and use the `lifecycle` module directly, which will allow you to leverage `for_each` at the module level to pass in multiple rules.
 
 - It is only possible to use canned ACLs with this module at this time.
 
@@ -27,7 +27,7 @@ Examples for use can be found under the [examples](https://github.com/so1omon563
 
 Since the AWS provider change to separate resources for S3 bucket configuration, note that the outputs of the S3 bucket itself may not reflect the configuration until the second time this module is run. This is because the S3 bucket resource is now created in a separate plan from the S3 bucket configuration. This is a known issue with Terraform and the AWS provider.
 
-As a workaround, the submodules that are used to configure the S3 bucket each have their own outputs(`*_module` outputs). These outputs will reflect the configuration immediately.
+As a workaround, the submodules that are used to configure the S3 bucket each have their own outputs(`*_module` outputs). These outputs will reflect the configuration immediately. It is suggested that you use these outputs instead of the `s3_bucket` outputs.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 Auto-generated technical documentation is created using [`terraform-docs`](https://terraform-docs.io/)
@@ -50,6 +50,8 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_accelerate"></a> [accelerate](#module\_accelerate) | ./modules/accelerate | n/a |
+| <a name="module_acl"></a> [acl](#module\_acl) | ./modules/acl | n/a |
+| <a name="module_cors"></a> [cors](#module\_cors) | ./modules/cors | n/a |
 | <a name="module_encryption"></a> [encryption](#module\_encryption) | ./modules/encryption | n/a |
 | <a name="module_lifecycle"></a> [lifecycle](#module\_lifecycle) | ./modules/lifecycle | n/a |
 | <a name="module_logging"></a> [logging](#module\_logging) | ./modules/logging | n/a |
@@ -62,8 +64,6 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 | Name | Type |
 |------|------|
 | [aws_s3_bucket.generic](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket_acl.canned_acl](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl) | resource |
-| [aws_s3_bucket_public_access_block.generic](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
@@ -74,8 +74,8 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 | <a name="input_accelerate_status"></a> [accelerate\_status](#input\_accelerate\_status) | Sets the the transfer acceleration state of the bucket. Can be `Enabled` or `Suspended`. | `string` | `null` | no |
 | <a name="input_bucket_name_override"></a> [bucket\_name\_override](#input\_bucket\_name\_override) | Used if there is a need to specify a bucket name outside of the standardized nomenclature. For example, if importing a bucket that doesn't follow the standard naming formats. | `string` | `null` | no |
 | <a name="input_bucket_prefix"></a> [bucket\_prefix](#input\_bucket\_prefix) | Bucket name prefix, will be pre-pended to AWS account ID and region to make bucket unique | `string` | `null` | no |
-| <a name="input_canned_acl"></a> [canned\_acl](#input\_canned\_acl) | The canned ACL to use for the bucket. Note that the default is `private`, which will also add a public access block to the bucket. | `string` | `"private"` | no |
-| <a name="input_cors_rules"></a> [cors\_rules](#input\_cors\_rules) | Map of properties for an optional CORS rule. See [aws\_s3\_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) for more info. Note that values are required for all objects, even if the value is `null`. | <pre>list(object({<br>    allowed_headers = list(string)<br>    allowed_methods = list(string)<br>    allowed_origins = list(string)<br>    expose_headers  = list(string)<br>    max_age_seconds = number<br>  }))</pre> | `null` | no |
+| <a name="input_canned_acl"></a> [canned\_acl](#input\_canned\_acl) | The canned ACL to use for the bucket. Note that the default is `private`, which will also add a (public access block)[https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block] to the bucket. | `string` | `"private"` | no |
+| <a name="input_cors_rules"></a> [cors\_rules](#input\_cors\_rules) | Map of properties for optional CORS rules. See [aws\_s3\_bucket\_cors\_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_cors_configuration) for more info. Note that values are required for all objects, even if the value is `null`. | <pre>list(object({<br>    allowed_headers = list(string)<br>    allowed_methods = list(string)<br>    allowed_origins = list(string)<br>    expose_headers  = list(string)<br>    id              = string<br>    max_age_seconds = number<br>  }))</pre> | `null` | no |
 | <a name="input_enable_oai"></a> [enable\_oai](#input\_enable\_oai) | If this is set to `true`, an [Origin Access Identity](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html) for use with CloudFront. | `bool` | `false` | no |
 | <a name="input_encryption"></a> [encryption](#input\_encryption) | Can be used to override the values in `local.encryption_defaults`.<br><br>  If `use_kms` is set to false, the bucket will be encrypted using the default `AES256` algorithm.<br><br>  If `use_bucket_keys` is set to `true`, a dedicated bucket key will be enabled, as outlined [here](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html).<br><br>  Default local values are:<pre>encryption_defaults = {<br>    use_kms         = true<br>    use_bucket_keys = false<br>  }</pre> | `map(string)` | `null` | no |
 | <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | A boolean that indicates all objects (including any locked objects) should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable. | `bool` | `false` | no |
@@ -101,7 +101,9 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 | Name | Description |
 |------|-------------|
 | <a name="output_accelerate_module"></a> [accelerate\_module](#output\_accelerate\_module) | A map of properties for the created accelerate configuration. |
+| <a name="output_acl_module"></a> [acl\_module](#output\_acl\_module) | A map of properties for the bucket's canned ACL configuration. |
 | <a name="output_bucket"></a> [bucket](#output\_bucket) | A map of properties for the created bucket. |
+| <a name="output_cors_module"></a> [cors\_module](#output\_cors\_module) | A map of properties for the bucket's CORS configuration. |
 | <a name="output_encryption_module"></a> [encryption\_module](#output\_encryption\_module) | A map of properties for the bucket's encryption configuration. |
 | <a name="output_lifecycle_module"></a> [lifecycle\_module](#output\_lifecycle\_module) | A map of properties for the created lifecycle configuration. |
 | <a name="output_logging_module"></a> [logging\_module](#output\_logging\_module) | A map of properties for the created logging configuration. |

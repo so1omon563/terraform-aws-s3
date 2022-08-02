@@ -22,7 +22,7 @@ variable "bucket_prefix" {
 
 variable "canned_acl" {
   type        = string
-  description = "The canned ACL to use for the bucket. Note that the default is `private`, which will also add a public access block to the bucket."
+  description = "The canned ACL to use for the bucket. Note that the default is `private`, which will also add a (public access block)[https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block] to the bucket."
   validation {
     condition = contains(["private",
       "public-read",
@@ -37,12 +37,13 @@ variable "canned_acl" {
 }
 
 variable "cors_rules" {
-  description = "Map of properties for an optional CORS rule. See [aws_s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) for more info. Note that values are required for all objects, even if the value is `null`."
+  description = "Map of properties for optional CORS rules. See [aws_s3_bucket_cors_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_cors_configuration) for more info. Note that values are required for all objects, even if the value is `null`."
   type = list(object({
     allowed_headers = list(string)
     allowed_methods = list(string)
     allowed_origins = list(string)
     expose_headers  = list(string)
+    id              = string
     max_age_seconds = number
   }))
   default = null
