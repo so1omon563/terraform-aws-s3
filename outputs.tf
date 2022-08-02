@@ -16,6 +16,11 @@ output "encryption_module" {
   description = "A map of properties for the bucket's encryption configuration."
 }
 
+output "lifecycle_module" {
+  value       = module.lifecycle
+  description = "A map of properties for the created lifecycle configuration."
+}
+
 output "logging_module" {
   value       = module.logging
   description = "A map of properties for the created logging configuration."
@@ -24,6 +29,11 @@ output "logging_module" {
 output "oai_module" {
   value       = module.oai
   description = "A map of properties for the created origin access identity."
+}
+
+output "request_payer_module" {
+  value       = module.request_payer
+  description = "A map of properties for the request payer configuration."
 }
 
 output "versioning_module" {

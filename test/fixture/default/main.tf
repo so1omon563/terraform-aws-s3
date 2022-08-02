@@ -46,7 +46,39 @@ module "generic-s3-options" {
   name              = format("%s-options", var.name)
   accelerate_status = "Enabled"
   enable_oai        = true
-  s3_logging_bucket = "prsn-s3-access-logs-us-east-1-498530135067"
-  tags              = { example = "true" }
+  # s3_logging_bucket = "bucket_name_here"
+  tags = { example = "true" }
+  lifecycle_rule = {
+    id      = "config"
+    enabled = true
+  }
+  lifecycle_abort_incomplete_multipart_upload = {
+    days_after_initiation = 10
+  }
+  lifecycle_expiration = {
+    date                         = null
+    days                         = 365
+    expired_object_delete_marker = true
+  }
+  lifecycle_filter = {
+    object_size_greater_than = null
+    object_size_less_than    = null
+    prefix                   = "config/"
+  }
+  lifecycle_noncurrent_version_expiration = {
+    newer_noncurrent_versions = 1
+    noncurrent_days           = 365
+  }
+  lifecycle_noncurrent_version_transition = {
+    newer_noncurrent_versions = 1
+    noncurrent_days           = 60
+    storage_class             = "GLACIER"
+  }
+  lifecycle_transition = {
+    date          = null
+    days          = 180
+    storage_class = "GLACIER"
+  }
 }
+
 output "generic-s3-options" { value = module.generic-s3-options }

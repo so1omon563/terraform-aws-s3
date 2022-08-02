@@ -27,6 +27,21 @@ module "encryption" {
   sse_algorithm     = local.encryption.use_kms ? "aws:kms" : "AES256"
 }
 
+module "lifecycle" {
+  for_each                          = local.lifecycle_rule
+  source                            = "./modules/lifecycle"
+  bucket                            = aws_s3_bucket.generic.bucket
+  rule                              = each.value
+  abort_incomplete_multipart_upload = var.lifecycle_abort_incomplete_multipart_upload
+  expiration                        = var.lifecycle_expiration
+  filter                            = var.lifecycle_filter
+  filter_and                        = var.lifecycle_filter_and
+  filter_tag                        = var.lifecycle_filter_tag
+  transition                        = var.lifecycle_transition
+  noncurrent_version_expiration     = var.lifecycle_noncurrent_version_expiration
+  noncurrent_version_transition     = var.lifecycle_noncurrent_version_transition
+}
+
 module "logging" {
   for_each = local.s3_logging_bucket
   source   = "./modules/logging"
