@@ -20,24 +20,24 @@ module "generic-s3" {
 output "generic-s3" { value = module.generic-s3 }
 
 #tfsec:ignore:AWS002 Not logging by default. Tests verify that logging is not enabled.
-# module "generic-s3-prefix" {
-#   source = "../../../"
+module "generic-s3-prefix" {
+  source = "../../../"
 
-#   name          = var.name
-#   tags          = { example = "true" }
-#   bucket_prefix = var.bucket_prefix
-# }
-# output "generic-s3-prefix" { value = module.generic-s3-prefix }
+  name          = var.name
+  tags          = { example = "true" }
+  bucket_prefix = var.bucket_prefix
+}
+output "generic-s3-prefix" { value = module.generic-s3-prefix }
 
 #tfsec:ignore:AWS002 Not logging by default. Tests verify that logging is not enabled.
-# module "generic-s3-override" {
-#   source = "../../../"
+module "generic-s3-override" {
+  source = "../../../"
 
-#   name                 = var.name
-#   tags                 = { example = "true" }
-#   bucket_name_override = var.bucket_name_override
-# }
-# output "generic-s3-override" { value = module.generic-s3-override }
+  name                 = var.name
+  tags                 = { example = "true" }
+  bucket_name_override = var.bucket_name_override
+}
+output "generic-s3-override" { value = module.generic-s3-override }
 
 #tfsec:ignore:AWS002 Not logging by default. Tests verify that logging is not enabled.
 module "generic-s3-options" {
