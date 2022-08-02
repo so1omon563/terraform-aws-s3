@@ -28,7 +28,7 @@ variable "bucket_prefix" {
 
 variable "canned_acl" {
   type        = string
-  description = "The canned ACL to use for the bucket. Note that the default is `private`, which will also add a (public access block)[https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block] to the bucket."
+  description = "The canned ACL to use for the bucket. Note that the default is `private`, which will also add a (public access block)[https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block] to the bucket. See [Canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) for more information on the options."
   validation {
     condition = contains(["private",
       "public-read",
@@ -36,8 +36,9 @@ variable "canned_acl" {
       "authenticated-read",
       "aws-exec-read",
       "bucket-owner-read",
-    "bucket-owner-full-control"], var.canned_acl)
-    error_message = "Valid values are limited to (private, public-read, public-read-write, authenticated-read, aws-exec-read, bucket-owner-read, bucket-owner-full-control)."
+      "bucket-owner-full-control",
+    "log-delivery-write"], var.canned_acl)
+    error_message = "Valid values are limited to (private, public-read, public-read-write, authenticated-read, aws-exec-read, bucket-owner-read, bucket-owner-full-control, log-delivery-write)."
   }
   default = "private"
 }
@@ -92,6 +93,12 @@ variable "kms_arn" {
   description = "ARN of the KMS key to encrypt the bucket with. If no value is provided, and the `encryption.use_kms` variable is set to `true`, the bucket will be encrypted using the default `aws/s3` AWS KMS master key."
   type        = string
   default     = null
+}
+
+variable "lb_access_logs" {
+  description = "Should the bucket be able to be used as an access log bucket for an ELB? If set to `true`, the bucket will be configured to allow access from the ELB service principal."
+  type        = bool
+  default     = false
 }
 
 variable "lifecycle_abort_incomplete_multipart_upload" {

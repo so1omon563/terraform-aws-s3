@@ -26,6 +26,11 @@ output "encryption_module" {
   description = "A map of properties for the bucket's encryption configuration."
 }
 
+output "lb_access_logs_module" {
+  value       = module.lb_access_logs
+  description = "A map of properties for the created bucket policy to allow LB access logging."
+}
+
 output "lifecycle_module" {
   value       = module.lifecycle
   description = "A map of properties for the created lifecycle configuration."
