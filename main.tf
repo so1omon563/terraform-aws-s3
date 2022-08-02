@@ -41,6 +41,18 @@ module "encryption" {
   sse_algorithm     = local.encryption.use_kms ? "aws:kms" : "AES256"
 }
 
+module "lb_access_logs" {
+  for_each = local.lb_access_logs
+  source   = "./modules/policy"
+  bucket   = aws_s3_bucket.generic.bucket
+  policy = templatefile("${path.module}/files/lb-policy.tmpl",
+    {
+      Bucket       = aws_s3_bucket.generic.bucket,
+      AccountID    = data.aws_caller_identity.current.account_id,
+      RegionAcctID = data.aws_elb_service_account.main.id,
+  })
+}
+
 module "lifecycle" {
   for_each                          = local.lifecycle_rule
   source                            = "./modules/lifecycle"
