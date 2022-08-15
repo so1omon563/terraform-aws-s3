@@ -11,7 +11,7 @@ locals {
 
   accelerate_status         = var.accelerate_status != null ? { enabled = var.accelerate_status } : {}
   bucket_policy             = var.bucket_policy != null ? { enabled = var.bucket_policy } : {}
-  lb_access_logs            = var.lb_access_logs != null ? { enabled = var.lb_access_logs } : {}
+  lb_access_logs            = var.lb_access_logs ? { enabled = var.lb_access_logs } : {}
   cors_rules                = var.cors_rules != null ? { enabled = var.cors_rules } : {}
   lifecycle_rule            = var.lifecycle_rule != null ? { enabled = var.lifecycle_rule } : {}
   oai                       = var.enable_oai ? { enabled = "ignore" } : {}
