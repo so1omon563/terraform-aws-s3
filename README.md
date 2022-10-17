@@ -6,12 +6,10 @@ Can specify CORS and lifecycle policies, including creating an OAI for CloudFron
 
 This module enables encyption (either AES256 or KMS) and versioning by default.
 
-All functionality outside of creating the bucket is handed off to submodules under the [modules](https://github.com/so1omon563/terraform-aws-s3/tree/main/modules) directory.
-As a result, all of these submodules can also be used independently to handle configuration of existing buckets.
+All functionality outside of creating the bucket is handed off to submodules under the `modules` directory.
+As a result, all of these submodules can also be used independently to handle configuration of existing buckets. Please review them to ensure you understand what is needed for your use case.
 
-Additional features to come. See the [TODO](https://github.com/so1omon563/terraform-aws-s3/tree/main/TODO) for more information. Feature requests and additional contribution requests are welcome, per the [CONTRIBUTING](https://github.com/so1omon563/terraform-aws-s3/tree/main/CONTRIBUTING.md) guidelines.
-
-Examples for use can be found under the [examples](https://github.com/so1omon563/terraform-aws-s3/tree/main/examples) directory.
+Additional features to come. See the [TODO](TODO) for more information. Feature requests and additional contribution requests are welcome, per the [CONTRIBUTING](CONTRIBUTING.md) guidelines.
 
 ## Limitations
 
@@ -36,7 +34,13 @@ Since the AWS provider change to separate resources for S3 bucket configuration,
 As a workaround, the submodules that are used to configure the S3 bucket each have their own outputs(`*_module` outputs). These outputs will reflect the configuration immediately. It is suggested that you use these outputs instead of the `s3_bucket` outputs.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
 Auto-generated technical documentation is created using [`terraform-docs`](https://terraform-docs.io/)
+## Examples
+
+```hcl
+# See examples under the top level examples directory for more information on how to use this module.
+```
 
 ## Requirements
 
@@ -49,7 +53,7 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.26.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.35.0 |
 
 ## Modules
 
@@ -125,4 +129,6 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 | <a name="output_policy_module"></a> [policy\_module](#output\_policy\_module) | A map of properties for the created bucket policy. |
 | <a name="output_request_payer_module"></a> [request\_payer\_module](#output\_request\_payer\_module) | A map of properties for the request payer configuration. |
 | <a name="output_versioning_module"></a> [versioning\_module](#output\_versioning\_module) | A map of properties for the created versioning configuration. |
+
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

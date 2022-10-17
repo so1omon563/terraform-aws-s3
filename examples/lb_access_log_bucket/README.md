@@ -1,9 +1,37 @@
-# Basic usage
+# LB access logging bucket
 
-Basic usage example can be found in the [`main.tf`] source file.
+Example of creating a Load Balancer access logging bucket.
 
 Example shows using Default Tags in the provider as well as passing additional tags into the resource.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+
+## Examples
+
+```hcl
+provider "aws" {
+  default_tags {
+    tags = {
+      environment = "dev"
+      terraform   = "true"
+    }
+  }
+}
+
+# Create LB access logging bucket
+module "example-lb-logging-bucket" {
+  source = "../../"
+
+  name = "example-lb-logging-bucket"
+  tags = {
+    example = "true"
+  }
+  bucket_prefix  = "generic"
+  lb_access_logs = true
+}
+output "example-lb-logging-bucket" { value = module.example-lb-logging-bucket }
+```
+
 ## Requirements
 
 No requirements.
@@ -31,4 +59,6 @@ No inputs.
 | Name | Description |
 |------|-------------|
 | <a name="output_example-lb-logging-bucket"></a> [example-lb-logging-bucket](#output\_example-lb-logging-bucket) | n/a |
+
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
