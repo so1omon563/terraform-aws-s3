@@ -1,9 +1,63 @@
-# Basic usage
+# Buckets in multiple regions
 
-Basic usage example can be found in the [`main.tf`] source file.
+Example of creating buckets in multiple regions.
 
 Example shows using Default Tags in the provider as well as passing additional tags into the resource.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+
+## Examples
+
+```hcl
+provider "aws" {
+  region = "us-east-1"
+  default_tags {
+    tags = {
+      environment = "dev"
+      terraform   = "true"
+      region      = "us-east-1"
+    }
+  }
+}
+
+provider "aws" {
+  alias  = "us-west-2"
+  region = "us-west-2"
+  default_tags {
+    tags = {
+      environment = "dev"
+      terraform   = "true"
+      region      = "us-west-2"
+    }
+  }
+}
+
+module "example-generic-s3-east" {
+  source = "../../"
+
+  name = "example-bucket"
+  tags = {
+    example = "true"
+  }
+  bucket_prefix = "generic"
+}
+output "example-generic-s3-east" { value = module.example-generic-s3-east }
+
+module "example-generic-s3-west" {
+  source = "../../"
+
+  providers = {
+    aws = aws.us-west-2
+  }
+  name = "example-bucket"
+  tags = {
+    example = "true"
+  }
+  bucket_prefix = "generic"
+}
+output "example-generic-s3-west" { value = module.example-generic-s3-west }
+```
+
 ## Requirements
 
 No requirements.
@@ -33,4 +87,6 @@ No inputs.
 |------|-------------|
 | <a name="output_example-generic-s3-east"></a> [example-generic-s3-east](#output\_example-generic-s3-east) | n/a |
 | <a name="output_example-generic-s3-west"></a> [example-generic-s3-west](#output\_example-generic-s3-west) | n/a |
+
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

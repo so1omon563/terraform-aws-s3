@@ -1,9 +1,35 @@
 # Basic usage
 
-Basic usage example can be found in the [`main.tf`] source file.
+Basic usage example.
 
 Example shows using Default Tags in the provider as well as passing additional tags into the resource.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+
+## Examples
+
+```hcl
+provider "aws" {
+  default_tags {
+    tags = {
+      environment = "dev"
+      terraform   = "true"
+    }
+  }
+}
+
+module "example-generic-s3" {
+  source = "../../"
+
+  name = "example-bucket"
+  tags = {
+    example = "true"
+  }
+  bucket_prefix = "generic"
+}
+output "example-generic-s3" { value = module.example-generic-s3 }
+```
+
 ## Requirements
 
 No requirements.
@@ -31,4 +57,6 @@ No inputs.
 | Name | Description |
 |------|-------------|
 | <a name="output_example-generic-s3"></a> [example-generic-s3](#output\_example-generic-s3) | n/a |
+
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

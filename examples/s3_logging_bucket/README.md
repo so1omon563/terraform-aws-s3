@@ -1,9 +1,50 @@
-# Basic usage
+# S3 logging bucket
 
-Basic usage example can be found in the [`main.tf`] source file.
+Example demonstrates creating an S3 bucket for logging S3 access to.
 
 Example shows using Default Tags in the provider as well as passing additional tags into the resource.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+
+## Examples
+
+```hcl
+provider "aws" {
+  default_tags {
+    tags = {
+      environment = "dev"
+      terraform   = "true"
+    }
+  }
+}
+
+# Create logging bucket
+module "example-logging-bucket" {
+  source = "../../"
+
+  name = "example-logging-bucket"
+  tags = {
+    example = "true"
+  }
+  bucket_prefix = "generic"
+  canned_acl    = "log-delivery-write"
+}
+output "example-logging-bucket" { value = module.example-logging-bucket }
+
+# Create bucket with logging enabled
+module "example-bucket" {
+  source = "../../"
+
+  name = "example-bucket"
+  tags = {
+    example = "true"
+  }
+  bucket_prefix     = "generic"
+  s3_logging_bucket = module.example-logging-bucket.bucket.id
+}
+output "example-bucket" { value = module.example-bucket }
+```
+
 ## Requirements
 
 No requirements.
@@ -33,4 +74,6 @@ No inputs.
 |------|-------------|
 | <a name="output_example-bucket"></a> [example-bucket](#output\_example-bucket) | n/a |
 | <a name="output_example-logging-bucket"></a> [example-logging-bucket](#output\_example-logging-bucket) | n/a |
+
+
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
