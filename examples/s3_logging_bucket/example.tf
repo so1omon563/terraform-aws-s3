@@ -9,7 +9,8 @@ provider "aws" {
 
 # Create logging bucket
 module "example-logging-bucket" {
-  source = "../../"
+  source  = "so1omon563/s3/aws"
+  version = "1.3.0" # Replace with appropriate version
 
   name = "example-logging-bucket"
   tags = {
@@ -22,7 +23,8 @@ output "example-logging-bucket" { value = module.example-logging-bucket }
 
 # Create bucket with logging enabled
 module "example-bucket" {
-  source = "../../"
+  source  = "so1omon563/s3/aws"
+  version = "1.3.0" # Replace with appropriate version
 
   name = "example-bucket"
   tags = {
