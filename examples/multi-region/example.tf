@@ -22,7 +22,8 @@ provider "aws" {
 }
 
 module "example-generic-s3-east" {
-  source = "../../"
+  source  = "so1omon563/s3/aws"
+  version = "1.3.0" # Replace with appropriate version
 
   name = "example-bucket"
   tags = {
@@ -33,7 +34,8 @@ module "example-generic-s3-east" {
 output "example-generic-s3-east" { value = module.example-generic-s3-east }
 
 module "example-generic-s3-west" {
-  source = "../../"
+  source  = "so1omon563/s3/aws"
+  version = "1.3.0" # Replace with appropriate version
 
   providers = {
     aws = aws.us-west-2

@@ -9,7 +9,8 @@ provider "aws" {
 
 # Create LB access logging bucket
 module "example-lb-logging-bucket" {
-  source = "../../"
+  source  = "so1omon563/s3/aws"
+  version = "1.3.0" # Replace with appropriate version
 
   name = "example-lb-logging-bucket"
   tags = {
