@@ -19,6 +19,17 @@ module "generic-s3" {
 }
 output "generic-s3" { value = module.generic-s3 }
 
+module "example-generic-object" {
+  source = "../../../modules/s3_object_from_file"
+
+  tags = { example = "true" }
+
+  bucket      = module.generic-s3.bucket.name
+  file_source = "${path.module}/files/test_file.txt"
+  key         = "test_file.txt"
+}
+output "example-generic-object" { value = module.example-generic-object }
+
 #tfsec:ignore:AWS002 Not logging by default. Tests verify that logging is not enabled.
 module "generic-s3-prefix" {
   source = "../../../"

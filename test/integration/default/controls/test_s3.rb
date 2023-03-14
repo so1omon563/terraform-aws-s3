@@ -9,7 +9,7 @@ s3_prefix_id = tfstate.read['outputs']['generic-s3-prefix']['value']['bucket']['
 s3_override_id = tfstate.read['outputs']['generic-s3-override']['value']['bucket']['name'].to_s
 s3_options_id = tfstate.read['outputs']['generic-s3-options']['value']['bucket']['name'].to_s
 
-control 'default' do
+control 'default' do # rubocop:disable Metrics/BlockLength
   describe aws_s3_bucket(s3_id) do
     # https://github.com/inspec/inspec-aws/blob/main/docs/resources/aws_s3_bucket.md
     it { should exist }
@@ -21,6 +21,12 @@ control 'default' do
       should include 'Name' => s3_id, 'environment' => 'dev', 'terraform' => 'true', 'kitchen' => 'true',
                      'example' => 'true'
     end
+  end
+
+  describe aws_s3_bucket_object(bucket_name: s3_id, key: 'test_file.txt') do
+    # https://docs.chef.io/inspec/resources/aws_s3_bucket_object/
+    it { should exist }
+    it { should_not be_public }
   end
 
   describe aws_s3_bucket(s3_prefix_id) do
