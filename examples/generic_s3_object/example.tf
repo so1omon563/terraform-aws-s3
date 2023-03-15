@@ -31,5 +31,3 @@ module "example-generic-object" {
   key         = "test_file.txt"
 }
 output "example-generic-object" { value = module.example-generic-object }
-
-

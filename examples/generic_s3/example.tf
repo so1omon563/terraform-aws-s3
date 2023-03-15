@@ -18,5 +18,3 @@ module "example-generic-s3" {
   bucket_prefix = "generic"
 }
 output "example-generic-s3" { value = module.example-generic-s3 }
-
-

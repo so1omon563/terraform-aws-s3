@@ -19,7 +19,8 @@ provider "aws" {
 }
 
 module "example-with-cors" {
-  source = "../../"
+  source  = "so1omon563/s3/aws"
+  version = "1.3.0" # Replace with appropriate version
 
   name = "example-bucket"
   tags = {
@@ -52,7 +53,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_example-with-cors"></a> [example-with-cors](#module\_example-with-cors) | ../../ | n/a |
+| <a name="module_example-with-cors"></a> [example-with-cors](#module\_example-with-cors) | so1omon563/s3/aws | 1.3.0 |
 
 ## Resources
 

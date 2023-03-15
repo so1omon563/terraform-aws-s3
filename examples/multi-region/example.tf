@@ -47,5 +47,3 @@ module "example-generic-s3-west" {
   bucket_prefix = "generic"
 }
 output "example-generic-s3-west" { value = module.example-generic-s3-west }
-
-
