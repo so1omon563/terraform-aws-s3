@@ -177,7 +177,8 @@ variable "lifecycle_transition" {
 
 variable "name" {
   type        = string
-  description = "Short, descriptive name of the environment. All resources will be named using this value as a prefix."
+  description = "Short, descriptive name of the environment. All resources will be named using this value as a prefix. Either this variable, or `bucket_name_override` must be set."
+  default     = null
 }
 
 variable "object_lock_configuration" {
