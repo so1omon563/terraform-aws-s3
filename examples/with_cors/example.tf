@@ -28,3 +28,6 @@ module "example-with-cors" {
   ]
 }
 output "example-with-cors" { value = module.example-with-cors }
+
+
+

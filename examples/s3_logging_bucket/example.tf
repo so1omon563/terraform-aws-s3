@@ -34,3 +34,5 @@ module "example-bucket" {
   s3_logging_bucket = module.example-logging-bucket.bucket.id
 }
 output "example-bucket" { value = module.example-bucket }
+
+

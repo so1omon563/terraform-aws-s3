@@ -20,3 +20,5 @@ module "example-lb-logging-bucket" {
   lb_access_logs = true
 }
 output "example-lb-logging-bucket" { value = module.example-lb-logging-bucket }
+
+
