@@ -20,7 +20,7 @@ provider "aws" {
 
 module "example-generic-s3" {
   source  = "so1omon563/s3/aws"
-  version = "1.3.0" # Replace with appropriate version
+  version = "1.4.0" # Replace with appropriate version
 
   name = "example-bucket"
   tags = {
@@ -43,7 +43,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_example-generic-s3"></a> [example-generic-s3](#module\_example-generic-s3) | so1omon563/s3/aws | 1.3.0 |
+| <a name="module_example-generic-s3"></a> [example-generic-s3](#module\_example-generic-s3) | so1omon563/s3/aws | 1.4.0 |
 
 ## Resources
 

@@ -9,7 +9,7 @@ provider "aws" {
 
 module "example-generic-s3" {
   source  = "so1omon563/s3/aws"
-  version = "1.3.0" # Replace with appropriate version
+  version = "1.4.0" # Replace with appropriate version
 
   name = "example-bucket"
   tags = {
