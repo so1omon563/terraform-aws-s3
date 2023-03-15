@@ -20,7 +20,7 @@ module "example-generic-s3" {
 output "example-generic-s3" { value = module.example-generic-s3 }
 
 module "example-generic-object" {
-    source  = "so1omon563/s3/aws//modules/s3_object_from_file"
+  source  = "so1omon563/s3/aws//modules/s3_object_from_file"
   version = "1.3.0" # Replace with appropriate version
 
   tags = {
