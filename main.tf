@@ -14,8 +14,9 @@ terraform {
 module "acl" {
   source = "./modules/acl"
 
-  bucket     = aws_s3_bucket.generic.bucket
-  canned_acl = var.canned_acl
+  bucket                = aws_s3_bucket.generic.bucket
+  canned_acl            = var.canned_acl
+  access_control_policy = var.access_control_policy
 }
 
 module "accelerate" {

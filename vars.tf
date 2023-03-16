@@ -8,6 +8,28 @@ variable "accelerate_status" {
   default = null
 }
 
+variable "access_control_policy" {
+  description = "Map of values for the [access_control_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl#access_control_policy) attribute. Conflicts with `canned_acl`. If this is set, `canned_acl` must be set to `null`. Note that values are required for all objects, even if the value is `null`."
+  type = object({
+    grants = list(object({
+      grant = object({
+        grantee = object({
+          email_address = string
+          id            = string
+          type          = string
+          uri           = string
+        })
+        permission = string
+      })
+    }))
+    owner = object({
+      id           = string
+      display_name = string
+    })
+  })
+  default = null
+}
+
 variable "bucket_name_override" {
   description = "Used if there is a need to specify a bucket name outside of the standardized nomenclature. For example, if importing a bucket that doesn't follow the standard naming formats."
   type        = string
@@ -28,16 +50,18 @@ variable "bucket_prefix" {
 
 variable "canned_acl" {
   type        = string
-  description = "The canned ACL to use for the bucket. Note that the default is `private`, which will also add a (public access block)[https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block] to the bucket. See [Canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) for more information on the options."
+  description = "The canned ACL to use for the bucket. Note that the default is `private`, which will also add a (public access block)[https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block] to the bucket. See [Canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) for more information on the options. If you wish to use an `access_control_policy`, this must be set to `null`."
   validation {
-    condition = contains(["private",
-      "public-read",
-      "public-read-write",
-      "authenticated-read",
-      "aws-exec-read",
-      "bucket-owner-read",
-      "bucket-owner-full-control",
-    "log-delivery-write"], var.canned_acl)
+    condition = var.canned_acl == null ? true : contains(
+      ["private",
+        "public-read",
+        "public-read-write",
+        "authenticated-read",
+        "aws-exec-read",
+        "bucket-owner-read",
+        "bucket-owner-full-control",
+      "log-delivery-write"],
+    var.canned_acl)
     error_message = "Valid values are limited to (private, public-read, public-read-write, authenticated-read, aws-exec-read, bucket-owner-read, bucket-owner-full-control, log-delivery-write)."
   }
   default = "private"
