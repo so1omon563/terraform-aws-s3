@@ -21,7 +21,7 @@ provider "aws" {
 # Create LB access logging bucket
 module "example-lb-logging-bucket" {
   source  = "so1omon563/s3/aws"
-  version = "1.4.0" # Replace with appropriate version
+  version = "2.0.0" # Replace with appropriate version
 
   name = "example-lb-logging-bucket"
   tags = {
@@ -45,7 +45,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_example-lb-logging-bucket"></a> [example-lb-logging-bucket](#module\_example-lb-logging-bucket) | so1omon563/s3/aws | 1.4.0 |
+| <a name="module_example-lb-logging-bucket"></a> [example-lb-logging-bucket](#module\_example-lb-logging-bucket) | so1omon563/s3/aws | 2.0.0 |
 
 ## Resources
 
