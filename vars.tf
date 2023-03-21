@@ -50,7 +50,7 @@ variable "bucket_prefix" {
 
 variable "canned_acl" {
   type        = string
-  description = "The canned ACL to use for the bucket. Note that the default is `private`, which will also add a (public access block)[https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block] to the bucket. See [Canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) for more information on the options. If you wish to use an `access_control_policy`, this must be set to `null`."
+  description = "The canned ACL to use for the bucket. Note that the default is `private`. See [Canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) for more information on the options. If you wish to use an `access_control_policy`, this must be set to `null`."
   validation {
     condition = var.canned_acl == null ? true : contains(
       ["private",
@@ -64,7 +64,7 @@ variable "canned_acl" {
     var.canned_acl)
     error_message = "Valid values are limited to (private, public-read, public-read-write, authenticated-read, aws-exec-read, bucket-owner-read, bucket-owner-full-control, log-delivery-write)."
   }
-  default = "private"
+  default = null
 }
 
 variable "cors_rules" {
@@ -217,6 +217,37 @@ variable "object_lock_configuration" {
     error_message = "Valid values for mode are limited to (COMPLIANCE, GOVERNANCE)."
   }
   default = null
+}
+
+variable "object_ownership" {
+  type        = string
+  description = "Object ownership. Valid values: `BucketOwnerPreferred`, `ObjectWriter` or `BucketOwnerEnforced`. If ACLs (canned or otherwise) are required, then `BucketOwnerPreferred`, or `ObjectWriter` must be used. See [s3_bucket_ownership_controls](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_ownership_controls) for more information on the options."
+  validation {
+    condition = var.object_ownership == null ? true : contains(
+      ["BucketOwnerPreferred",
+        "ObjectWriter",
+        "BucketOwnerEnforced",
+      ],
+    var.object_ownership)
+    error_message = "Valid values are limited to (BucketOwnerPreferred, ObjectWriter, BucketOwnerEnforced)."
+  }
+  default = "BucketOwnerEnforced"
+}
+
+variable "public_access_block" {
+  type = object({
+    block_public_acls       = bool
+    block_public_policy     = bool
+    ignore_public_acls      = bool
+    restrict_public_buckets = bool
+  })
+  description = "Public Access Block configuration. See [s3_bucket_public_access_block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) for more information on the options."
+  default = {
+    block_public_acls       = true
+    block_public_policy     = true
+    ignore_public_acls      = true
+    restrict_public_buckets = true
+  }
 }
 
 variable "request_payer" {

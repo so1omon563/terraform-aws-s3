@@ -1,4 +1,7 @@
 name: Bump version
+
+permissions: read-all
+
 on:
   pull_request_target:
     types:

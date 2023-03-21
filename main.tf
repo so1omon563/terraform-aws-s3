@@ -11,12 +11,13 @@ terraform {
   }
 }
 
-module "acl" {
-  source = "./modules/acl"
+module "access_control_policy" {
+  for_each = local.access_control_policy
+  source   = "./modules/acl"
 
   bucket                = aws_s3_bucket.generic.bucket
-  canned_acl            = var.canned_acl
-  access_control_policy = var.access_control_policy
+  canned_acl            = null
+  access_control_policy = each.value
 }
 
 module "accelerate" {
@@ -24,6 +25,15 @@ module "accelerate" {
   source   = "./modules/accelerate"
   bucket   = aws_s3_bucket.generic.id
   status   = each.value
+}
+
+module "canned_acl" {
+  for_each = local.canned_acl
+  source   = "./modules/acl"
+
+  bucket                = aws_s3_bucket.generic.bucket
+  canned_acl            = each.value
+  access_control_policy = null
 }
 
 module "cors" {
@@ -94,11 +104,24 @@ module "object_locking" {
   object_lock_configuration = each.value
 }
 
+module "object_ownership" {
+  for_each         = local.object_ownership
+  source           = "./modules/object_ownership"
+  bucket           = aws_s3_bucket.generic.bucket
+  object_ownership = each.value
+}
+
 module "policy" {
   for_each = local.bucket_policy
   source   = "./modules/policy"
   bucket   = aws_s3_bucket.generic.bucket
   policy   = each.value
+}
+
+module "public_access_block" {
+  source              = "./modules/public_access_block"
+  bucket              = aws_s3_bucket.generic.bucket
+  public_access_block = var.public_access_block
 }
 
 module "request_payer" {
