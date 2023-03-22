@@ -6,13 +6,18 @@ output "bucket" {
   description = "A map of properties for the created bucket."
 }
 
+output "access_control_policy_module" {
+  value       = module.access_control_policy
+  description = "A map of properties for the bucket's specific (not canned) ACL configuration."
+}
+
 output "accelerate_module" {
   value       = module.accelerate
   description = "A map of properties for the created accelerate configuration."
 }
 
-output "acl_module" {
-  value       = module.acl
+output "canned_acl_module" {
+  value       = module.canned_acl
   description = "A map of properties for the bucket's canned ACL configuration."
 }
 
@@ -54,6 +59,11 @@ output "object_locking_module" {
 output "policy_module" {
   value       = module.policy
   description = "A map of properties for the created bucket policy."
+}
+
+output "public_access_block_module" {
+  value       = module.public_access_block
+  description = "A map of properties for the bucket's Public Access Block configuration."
 }
 
 output "request_payer_module" {

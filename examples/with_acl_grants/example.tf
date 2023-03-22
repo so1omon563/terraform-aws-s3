@@ -37,6 +37,7 @@ module "acl-s3" {
     }
 
   }
+  # object_ownership = null
 }
 
 output "acl-s3" { value = module.acl-s3 }
