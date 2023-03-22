@@ -20,7 +20,7 @@ provider "aws" {
 
 module "example-generic-s3" {
   source  = "so1omon563/s3/aws"
-  version = "2.0.0" # Replace with appropriate version
+  version = "3.0.0" # Replace with appropriate version
 
   name = "example-bucket-object"
   tags = {
@@ -32,7 +32,7 @@ output "example-generic-s3" { value = module.example-generic-s3 }
 
 module "example-generic-object" {
   source  = "so1omon563/s3/aws//modules/s3_object_from_file"
-  version = "2.0.0" # Replace with appropriate version
+  version = "3.0.0" # Replace with appropriate version
 
   tags = {
     example = "true"
@@ -56,8 +56,8 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_example-generic-object"></a> [example-generic-object](#module\_example-generic-object) | so1omon563/s3/aws//modules/s3_object_from_file | 2.0.0 |
-| <a name="module_example-generic-s3"></a> [example-generic-s3](#module\_example-generic-s3) | so1omon563/s3/aws | 2.0.0 |
+| <a name="module_example-generic-object"></a> [example-generic-object](#module\_example-generic-object) | so1omon563/s3/aws//modules/s3_object_from_file | 3.0.0 |
+| <a name="module_example-generic-s3"></a> [example-generic-s3](#module\_example-generic-s3) | so1omon563/s3/aws | 3.0.0 |
 
 ## Resources
 

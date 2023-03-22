@@ -34,7 +34,7 @@ provider "aws" {
 
 module "example-generic-s3-east" {
   source  = "so1omon563/s3/aws"
-  version = "2.0.0" # Replace with appropriate version
+  version = "3.0.0" # Replace with appropriate version
 
   name = "example-bucket"
   tags = {
@@ -46,7 +46,7 @@ output "example-generic-s3-east" { value = module.example-generic-s3-east }
 
 module "example-generic-s3-west" {
   source  = "so1omon563/s3/aws"
-  version = "2.0.0" # Replace with appropriate version
+  version = "3.0.0" # Replace with appropriate version
 
   providers = {
     aws = aws.us-west-2
@@ -72,8 +72,8 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_example-generic-s3-east"></a> [example-generic-s3-east](#module\_example-generic-s3-east) | so1omon563/s3/aws | 2.0.0 |
-| <a name="module_example-generic-s3-west"></a> [example-generic-s3-west](#module\_example-generic-s3-west) | so1omon563/s3/aws | 2.0.0 |
+| <a name="module_example-generic-s3-east"></a> [example-generic-s3-east](#module\_example-generic-s3-east) | so1omon563/s3/aws | 3.0.0 |
+| <a name="module_example-generic-s3-west"></a> [example-generic-s3-west](#module\_example-generic-s3-west) | so1omon563/s3/aws | 3.0.0 |
 
 ## Resources
 
