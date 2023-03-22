@@ -1,7 +1,7 @@
 data "aws_canonical_user_id" "current" {}
 module "acl-s3" {
   source  = "so1omon563/s3/aws"
-  version = "2.0.0" # Replace with appropriate version
+  version = "3.0.0" # Replace with appropriate version
 
   name          = "example-bucket"
   bucket_prefix = "acl-test"
@@ -37,7 +37,7 @@ module "acl-s3" {
     }
 
   }
-  # object_ownership = null
+  object_ownership = null
 }
 
 output "acl-s3" { value = module.acl-s3 }
