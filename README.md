@@ -133,6 +133,7 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 | <a name="output_logging_module"></a> [logging\_module](#output\_logging\_module) | A map of properties for the created logging configuration. |
 | <a name="output_oai_module"></a> [oai\_module](#output\_oai\_module) | A map of properties for the created origin access identity. |
 | <a name="output_object_locking_module"></a> [object\_locking\_module](#output\_object\_locking\_module) | A map of properties for the object locking configuration. |
+| <a name="output_object_ownership_module"></a> [object\_ownership\_module](#output\_object\_ownership\_module) | A map of properties for the bucket's object ownership configuration. |
 | <a name="output_policy_module"></a> [policy\_module](#output\_policy\_module) | A map of properties for the created bucket policy. |
 | <a name="output_public_access_block_module"></a> [public\_access\_block\_module](#output\_public\_access\_block\_module) | A map of properties for the bucket's Public Access Block configuration. |
 | <a name="output_request_payer_module"></a> [request\_payer\_module](#output\_request\_payer\_module) | A map of properties for the request payer configuration. |

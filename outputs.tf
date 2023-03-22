@@ -56,6 +56,11 @@ output "object_locking_module" {
   description = "A map of properties for the object locking configuration."
 }
 
+output "object_ownership_module" {
+  value       = module.object_ownership
+  description = "A map of properties for the bucket's object ownership configuration."
+}
+
 output "policy_module" {
   value       = module.policy
   description = "A map of properties for the created bucket policy."
