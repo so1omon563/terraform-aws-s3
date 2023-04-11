@@ -53,7 +53,7 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.59.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.62.0 |
 
 ## Modules
 
@@ -125,6 +125,7 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 | <a name="output_accelerate_module"></a> [accelerate\_module](#output\_accelerate\_module) | A map of properties for the created accelerate configuration. |
 | <a name="output_access_control_policy_module"></a> [access\_control\_policy\_module](#output\_access\_control\_policy\_module) | A map of properties for the bucket's specific (not canned) ACL configuration. |
 | <a name="output_bucket"></a> [bucket](#output\_bucket) | A map of properties for the created bucket. |
+| <a name="output_bucket_id"></a> [bucket\_id](#output\_bucket\_id) | The name of the created bucket. |
 | <a name="output_canned_acl_module"></a> [canned\_acl\_module](#output\_canned\_acl\_module) | A map of properties for the bucket's canned ACL configuration. |
 | <a name="output_cors_module"></a> [cors\_module](#output\_cors\_module) | A map of properties for the bucket's CORS configuration. |
 | <a name="output_encryption_module"></a> [encryption\_module](#output\_encryption\_module) | A map of properties for the bucket's encryption configuration. |
