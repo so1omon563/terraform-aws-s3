@@ -6,6 +6,11 @@ output "bucket" {
   description = "A map of properties for the created bucket."
 }
 
+output "bucket_id" {
+  value       = aws_s3_bucket.generic.bucket
+  description = "The name of the created bucket."
+}
+
 output "access_control_policy_module" {
   value       = module.access_control_policy
   description = "A map of properties for the bucket's specific (not canned) ACL configuration."
