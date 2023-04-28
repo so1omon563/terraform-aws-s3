@@ -12,9 +12,8 @@ Example shows using Default Tags in the provider as well as passing additional t
 data "aws_canonical_user_id" "current" {}
 
 module "acl-s3" {
-  # source  = "so1omon563/s3/aws"
-  # version = "3.0.0" # Replace with appropriate version
-  source = "../.."
+  source  = "so1omon563/s3/aws"
+  version = "3.3.0" # Replace with appropriate version
 
   name          = "example-bucket"
   bucket_prefix = "acl-test"
@@ -56,7 +55,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acl-s3"></a> [acl-s3](#module\_acl-s3) | ../.. | n/a |
+| <a name="module_acl-s3"></a> [acl-s3](#module\_acl-s3) | so1omon563/s3/aws | 3.3.0 |
 
 ## Resources
 
