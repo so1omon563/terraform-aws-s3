@@ -1,3 +1,3 @@
 locals {
-  access_control_policy = var.access_control_policy != null ? { enabled = var.access_control_policy } : {}
+  access_control_policy_grants = try(jsondecode(var.access_control_policy_grants), var.access_control_policy_grants)
 }

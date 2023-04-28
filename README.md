@@ -11,6 +11,8 @@ As a result, all of these submodules can also be used independently to handle co
 
 Additional features to come. See the [TODO](TODO) for more information. Feature requests and additional contribution requests are welcome, per the [CONTRIBUTING](CONTRIBUTING.md) guidelines.
 
+**Note that versions prior to 3.3.0 had significant bugs in the ACL configuration. Please upgrade to 3.3.0 or later if you are using ACLs.**
+
 ## Limitations
 
 - It is not possible to create an unencrypted S3 bucket with this module. This is by design.
@@ -53,7 +55,7 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.62.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.65.0 |
 
 ## Modules
 
@@ -89,11 +91,12 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_accelerate_status"></a> [accelerate\_status](#input\_accelerate\_status) | Sets the the transfer acceleration state of the bucket. Can be `Enabled` or `Suspended`. | `string` | `null` | no |
-| <a name="input_access_control_policy"></a> [access\_control\_policy](#input\_access\_control\_policy) | Map of values for the [access\_control\_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl#access_control_policy) attribute. Conflicts with `canned_acl`. If this is set, `canned_acl` must be set to `null`. Note that values are required for all objects, even if the value is `null`. | <pre>object({<br>    grants = list(object({<br>      grant = object({<br>        grantee = object({<br>          email_address = string<br>          id            = string<br>          type          = string<br>          uri           = string<br>        })<br>        permission = string<br>      })<br>    }))<br>    owner = object({<br>      id           = string<br>      display_name = string<br>    })<br>  })</pre> | `null` | no |
+| <a name="input_access_control_policy_grants"></a> [access\_control\_policy\_grants](#input\_access\_control\_policy\_grants) | Map of values for the grant block of the [access\_control\_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl#access_control_policy) attribute. Conflicts with `canned_acl`. May also conflict with `object_ownership`. See that variable for more information. See `with_acl_grants` example for usage examples. | `any` | `[]` | no |
+| <a name="input_access_control_policy_owner"></a> [access\_control\_policy\_owner](#input\_access\_control\_policy\_owner) | Map of values for the owner block of the [access\_control\_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl#access_control_policy) attribute. Conflicts with `canned_acl`. May also conflict with `object_ownership`. See that variable for more information. See `with_acl_grants` example for usage examples. | `map(string)` | `null` | no |
 | <a name="input_bucket_name_override"></a> [bucket\_name\_override](#input\_bucket\_name\_override) | Used if there is a need to specify a bucket name outside of the standardized nomenclature. For example, if importing a bucket that doesn't follow the standard naming formats. | `string` | `null` | no |
 | <a name="input_bucket_policy"></a> [bucket\_policy](#input\_bucket\_policy) | Optional bucket policy in JSON format. Although this is a bucket policy rather than an IAM policy, the [aws\_iam\_policy\_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) data source may be used, so long as it specifies a principal. For more information about building AWS IAM policy documents with Terraform, see the [AWS IAM Policy Document Guide](https://learn.hashicorp.com/tutorials/terraform/aws-iam-policy?_ga=2.150865718.1068941414.1658759740-2145690310.1655932481). Note: Bucket policies are limited to 20 KB in size. | `string` | `null` | no |
 | <a name="input_bucket_prefix"></a> [bucket\_prefix](#input\_bucket\_prefix) | Bucket name prefix, will be pre-pended to AWS account ID and region to make bucket unique | `string` | `null` | no |
-| <a name="input_canned_acl"></a> [canned\_acl](#input\_canned\_acl) | The canned ACL to use for the bucket. Note that the default is `private`. See [Canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) for more information on the options. If you wish to use an `access_control_policy`, this must be set to `null`. | `string` | `null` | no |
+| <a name="input_canned_acl"></a> [canned\_acl](#input\_canned\_acl) | The canned ACL to use for the bucket. See [Canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) for more information on the options. If you wish to use an `access_control_policy`, this must be set to `null`. | `string` | `null` | no |
 | <a name="input_cors_rules"></a> [cors\_rules](#input\_cors\_rules) | Map of properties for optional CORS rules. See [aws\_s3\_bucket\_cors\_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_cors_configuration) for more info. Note that values are required for all objects, even if the value is `null`. | <pre>list(object({<br>    allowed_headers = list(string)<br>    allowed_methods = list(string)<br>    allowed_origins = list(string)<br>    expose_headers  = list(string)<br>    id              = string<br>    max_age_seconds = number<br>  }))</pre> | `null` | no |
 | <a name="input_enable_oai"></a> [enable\_oai](#input\_enable\_oai) | If this is set to `true`, an [Origin Access Identity](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html) for use with CloudFront. | `bool` | `false` | no |
 | <a name="input_encryption"></a> [encryption](#input\_encryption) | Can be used to override the values in `local.encryption_defaults`.<br><br>  If `use_kms` is set to false, the bucket will be encrypted using the default `AES256` algorithm.<br><br>  If `use_bucket_keys` is set to `true`, a dedicated bucket key will be enabled, as outlined [here](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html).<br><br>  Default local values are:<pre>encryption_defaults = {<br>    use_kms         = true<br>    use_bucket_keys = false<br>  }</pre> | `map(string)` | `null` | no |
