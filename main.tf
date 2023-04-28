@@ -12,12 +12,15 @@ terraform {
 }
 
 module "access_control_policy" {
-  for_each = local.access_control_policy
+  for_each = local.access_control_policy_grants
   source   = "./modules/acl"
 
-  bucket                = aws_s3_bucket.generic.bucket
-  canned_acl            = null
-  access_control_policy = each.value
+  bucket                       = aws_s3_bucket.generic.bucket
+  canned_acl                   = null
+  access_control_policy_grants = each.value
+  access_control_policy_owner  = var.access_control_policy_owner
+
+  depends_on = [module.object_ownership]
 }
 
 module "accelerate" {
@@ -31,9 +34,11 @@ module "canned_acl" {
   for_each = local.canned_acl
   source   = "./modules/acl"
 
-  bucket                = aws_s3_bucket.generic.bucket
-  canned_acl            = each.value
-  access_control_policy = null
+  bucket                       = aws_s3_bucket.generic.bucket
+  canned_acl                   = each.value
+  access_control_policy_grants = []
+
+  depends_on = [module.object_ownership]
 }
 
 module "cors" {

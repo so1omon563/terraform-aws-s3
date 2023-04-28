@@ -10,45 +10,33 @@ Example shows using Default Tags in the provider as well as passing additional t
 
 ```hcl
 data "aws_canonical_user_id" "current" {}
+
 module "acl-s3" {
-  source  = "so1omon563/s3/aws"
-  version = "3.0.0" # Replace with appropriate version
+  # source  = "so1omon563/s3/aws"
+  # version = "3.0.0" # Replace with appropriate version
+  source = "../.."
 
   name          = "example-bucket"
   bucket_prefix = "acl-test"
   tags          = { example = "true" }
-  canned_acl    = null
-  access_control_policy = {
-    grants = [{
-      grant = {
-        grantee = {
-          email_address = null
-          id            = data.aws_canonical_user_id.current.id
-          type          = "CanonicalUser"
-          uri           = null
-        }
-        permission = "READ"
-      },
 
-      grant = {
-        grantee = {
-          email_address = null
-          id            = null
-          type          = "Group"
-          uri           = "http://acs.amazonaws.com/groups/s3/LogDelivery"
+  object_ownership = "ObjectWriter"
 
-        }
-        permission = "READ_ACP"
-      }
-    }]
-
-    owner = {
-      id           = data.aws_canonical_user_id.current.id
-      display_name = null
+  access_control_policy_grants = [
+    {
+      type       = "CanonicalUser"
+      permission = "FULL_CONTROL"
+      id         = data.aws_canonical_user_id.current.id
+    },
+    {
+      type       = "Group"
+      permission = "READ_ACP"
+      uri        = "http://acs.amazonaws.com/groups/s3/LogDelivery"
     }
-
+  ]
+  access_control_policy_owner = {
+    id = data.aws_canonical_user_id.current.id
   }
-  object_ownership = null
 }
 
 output "acl-s3" { value = module.acl-s3 }
@@ -62,13 +50,13 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.59.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.65.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acl-s3"></a> [acl-s3](#module\_acl-s3) | so1omon563/s3/aws | 3.0.0 |
+| <a name="module_acl-s3"></a> [acl-s3](#module\_acl-s3) | ../.. | n/a |
 
 ## Resources
 
