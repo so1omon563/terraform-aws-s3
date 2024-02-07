@@ -13,7 +13,7 @@ data "aws_canonical_user_id" "current" {}
 
 module "acl-s3" {
   source  = "so1omon563/s3/aws"
-  version = "3.3.0" # Replace with appropriate version
+  version = "4.0.0" # Replace with appropriate version
 
   name          = "example-bucket"
   bucket_prefix = "acl-test"
@@ -49,13 +49,13 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.65.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.35.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acl-s3"></a> [acl-s3](#module\_acl-s3) | so1omon563/s3/aws | 3.3.0 |
+| <a name="module_acl-s3"></a> [acl-s3](#module\_acl-s3) | so1omon563/s3/aws | 4.0.0 |
 
 ## Resources
 

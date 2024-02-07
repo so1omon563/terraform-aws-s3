@@ -21,7 +21,7 @@ provider "aws" {
 # Create logging bucket
 module "example-logging-bucket" {
   source  = "so1omon563/s3/aws"
-  version = "3.3.0" # Replace with appropriate version
+  version = "4.0.0" # Replace with appropriate version
 
   name = "example-logging-bucket"
   tags = {
@@ -35,7 +35,7 @@ output "example-logging-bucket" { value = module.example-logging-bucket }
 # Create bucket with logging enabled
 module "example-bucket" {
   source  = "so1omon563/s3/aws"
-  version = "3.3.0" # Replace with appropriate version
+  version = "4.0.0" # Replace with appropriate version
 
   name = "example-bucket"
   tags = {
@@ -59,8 +59,8 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_example-bucket"></a> [example-bucket](#module\_example-bucket) | so1omon563/s3/aws | 3.3.0 |
-| <a name="module_example-logging-bucket"></a> [example-logging-bucket](#module\_example-logging-bucket) | so1omon563/s3/aws | 3.3.0 |
+| <a name="module_example-bucket"></a> [example-bucket](#module\_example-bucket) | so1omon563/s3/aws | 4.0.0 |
+| <a name="module_example-logging-bucket"></a> [example-logging-bucket](#module\_example-logging-bucket) | so1omon563/s3/aws | 4.0.0 |
 
 ## Resources
 

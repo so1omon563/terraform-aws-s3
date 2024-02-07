@@ -9,7 +9,7 @@ provider "aws" {
 
 module "example-with-cors" {
   source  = "so1omon563/s3/aws"
-  version = "3.3.0" # Replace with appropriate version
+  version = "4.0.0" # Replace with appropriate version
 
   name = "example-bucket"
   tags = {
