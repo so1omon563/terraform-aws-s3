@@ -1,4 +1,6 @@
 resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
+  #checkov:skip=CKV_AWS_300: "Ensure S3 lifecycle configuration sets period for aborting failed uploads" - Since this is a re-usable module, this needs to be able to be overridden. Default variables meet best practice standard.
+
   bucket                = var.bucket
   expected_bucket_owner = var.expected_bucket_owner
 

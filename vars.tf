@@ -122,7 +122,9 @@ variable "lifecycle_abort_incomplete_multipart_upload" {
   type = object({
     days_after_initiation = number
   })
-  default = null
+  default = {
+    days_after_initiation = 7
+  }
 }
 
 variable "lifecycle_expiration" {
