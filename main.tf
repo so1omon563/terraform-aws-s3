@@ -124,6 +124,7 @@ module "policy" {
 }
 
 module "public_access_block" {
+  for_each            = local.public_access_block
   source              = "./modules/public_access_block"
   bucket              = aws_s3_bucket.generic.bucket
   public_access_block = var.public_access_block

@@ -122,13 +122,11 @@ variable "lifecycle_abort_incomplete_multipart_upload" {
   type = object({
     days_after_initiation = number
   })
-  default = {
-    days_after_initiation = 7
-  }
+  default = null
 }
 
 variable "lifecycle_expiration" {
-  description = "Specifies when an object transitions to a specified storage class. See [Expiration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration#expiration) for more info. If using this variable, all values must be populated, even if that value is `null`."
+  description = "Specifies when an object transitions to a specified storage class. See [Expiration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration#expiration) for more info. If using this variable, all values must be populated, even if that value is `null`. If setting `days` or `date`, `expired_object_delete_marker` must be set to `null`."
   type = object({
     date                         = string
     days                         = number
@@ -226,6 +224,12 @@ variable "object_ownership" {
     error_message = "Valid values are limited to (BucketOwnerPreferred, ObjectWriter, BucketOwnerEnforced)."
   }
   default = "BucketOwnerEnforced"
+}
+
+variable "public_access_block_required" {
+  type        = bool
+  description = "If set to `true`, the module will create a public access block configuration. If set to `false`, the module will not create a public access block configuration. This is useful if you want to manage the public access block configuration outside of this module."
+  default     = true
 }
 
 variable "public_access_block" {
