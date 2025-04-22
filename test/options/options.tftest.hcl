@@ -32,10 +32,6 @@ run "verify_bucket_prefix_s3_outputs_plan" {
     error_message = "Logging configuration does not match expected result."
   }
   assert {
-    condition     = module.generic-s3-options.public_access_block_module.public_access_block.block_public_acls == true && module.generic-s3-options.public_access_block_module.public_access_block.block_public_policy == true && module.generic-s3-options.public_access_block_module.public_access_block.ignore_public_acls == true && module.generic-s3-options.public_access_block_module.public_access_block.restrict_public_buckets == true && module.generic-s3-options.public_access_block_module.public_access_block.bucket == local.bucket_name
-    error_message = "Public Access Block configuration does not match expected result."
-  }
-  assert {
     condition     = module.generic-s3-options.request_payer_module.request_payer.payer == "BucketOwner" && module.generic-s3-options.request_payer_module.request_payer.bucket == local.bucket_name
     error_message = "Logging configuration does not match expected result."
   }

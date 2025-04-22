@@ -19,6 +19,7 @@ locals {
   oai                          = var.enable_oai ? { enabled = "ignore" } : {}
   object_lock_configuration    = var.object_lock_configuration != null ? { enabled = var.object_lock_configuration } : {}
   object_ownership             = var.object_ownership != null ? { enabled = var.object_ownership } : {}
+  public_access_block          = var.public_access_block_required ? { enabled = "ignore" } : {}
   s3_logging_bucket            = var.s3_logging_bucket != null ? { enabled = var.s3_logging_bucket } : {}
 
   bucket_name = var.bucket_name_override != null ? var.bucket_name_override : var.bucket_prefix == null ? format("%s-%s-%s", var.name, local.region, local.account_id) : format("%s-%s-%s-%s", var.name, var.bucket_prefix, local.region, local.account_id)

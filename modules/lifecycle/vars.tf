@@ -20,7 +20,7 @@ variable "expected_bucket_owner" {
 }
 
 variable "expiration" {
-  description = "Specifies when an object transitions to a specified storage class. See [Expiration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration#expiration) for more info. If using this variable, all values must be populated, even if that value is `null`."
+  description = "Specifies when an object transitions to a specified storage class. See [Expiration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration#expiration) for more info. If using this variable, all values must be populated, even if that value is `null`. If setting `days` or `date`, `expired_object_delete_marker` must be set to `null`."
   type = object({
     date                         = string
     days                         = number

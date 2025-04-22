@@ -32,7 +32,7 @@ run "verify_acl_s3_outputs_plan" {
     error_message = "Logging configuration does not match expected result."
   }
   assert {
-    condition     = module.acl-s3.public_access_block_module.public_access_block.block_public_acls == true && module.acl-s3.public_access_block_module.public_access_block.block_public_policy == true && module.acl-s3.public_access_block_module.public_access_block.ignore_public_acls == true && module.acl-s3.public_access_block_module.public_access_block.restrict_public_buckets == true && module.acl-s3.public_access_block_module.public_access_block.bucket == local.bucket_name
+    condition     = module.acl-s3.public_access_block_module.enabled.public_access_block.block_public_acls == true && module.acl-s3.public_access_block_module.enabled.public_access_block.block_public_policy == true && module.acl-s3.public_access_block_module.enabled.public_access_block.ignore_public_acls == true && module.acl-s3.public_access_block_module.enabled.public_access_block.restrict_public_buckets == true && module.acl-s3.public_access_block_module.enabled.public_access_block.bucket == local.bucket_name
     error_message = "Public Access Block configuration does not match expected result."
   }
   assert {

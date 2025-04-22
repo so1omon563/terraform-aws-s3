@@ -33,11 +33,12 @@ locals {
 module "generic-s3-options" {
   source = "../../"
 
-  name              = var.name
-  bucket_prefix     = var.bucket_prefix
-  accelerate_status = "Enabled"
-  enable_oai        = true
-  tags              = var.tags
+  name                         = var.name
+  bucket_prefix                = var.bucket_prefix
+  accelerate_status            = "Enabled"
+  enable_oai                   = true
+  public_access_block_required = false
+  tags                         = var.tags
   lifecycle_rule = {
     id      = "config"
     enabled = true
@@ -48,7 +49,7 @@ module "generic-s3-options" {
   lifecycle_expiration = {
     date                         = null
     days                         = 365
-    expired_object_delete_marker = true
+    expired_object_delete_marker = null
   }
   lifecycle_filter = {
     object_size_greater_than = null
