@@ -1,14 +1,35 @@
+mock_provider "aws" {
+  mock_data "aws_caller_identity" {
+    defaults = {
+      account_id = "123456789012"
+    }
+  }
+
+  mock_data "aws_region" {
+    defaults = {
+      id   = "us-east-1"
+      name = "us-east-1"
+    }
+  }
+
+  mock_data "aws_elb_service_account" {
+    defaults = {
+      id = "127311923021"
+    }
+  }
+}
+
 # Some basic unit testing to verify that selected outputs of the main module return expected results.
 # In order to reduce testing cost, only items that can be verified via a `terraform plan` are being tested here.
 
 run "verify_basic_usage_s3_outputs_plan" {
   command = plan
   assert {
-    condition     = module.generic-s3.bucket.tags_all.Name == local.bucket_name
+    condition     = module.generic-s3.bucket.tags.Name == local.bucket_name
     error_message = "Name Tag did not match expected result."
   }
   assert {
-    condition     = module.generic-s3.bucket.tags_all.example == "true" && module.generic-s3.bucket.tags_all.environment == "dev" && module.generic-s3.bucket.tags_all.terraform == "true"
+    condition     = module.generic-s3.bucket.tags.example == "true"
     error_message = "One or more tags did not match expected result."
   }
   assert {

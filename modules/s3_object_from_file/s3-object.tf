@@ -11,7 +11,7 @@ resource "aws_s3_object" "object" {
     sha256 = filesha256(var.file_source) # Used to trigger updates if the file changes
   }
 
-  force_destroy = var.force_destroy
+  force_destroy                 = var.force_destroy
   object_lock_legal_hold_status = var.object_lock_legal_hold_status
   object_lock_mode              = var.object_lock_mode
   object_lock_retain_until_date = var.object_lock_retain_until_date
