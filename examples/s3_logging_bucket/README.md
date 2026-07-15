@@ -10,7 +10,7 @@ Example shows using Default Tags in the provider as well as passing additional t
 
 ```hcl
 terraform {
-  required_version = ">= 1.0"
+  required_version = ">= 1.5"
 
   required_providers {
     aws = {
@@ -62,7 +62,7 @@ output "example-bucket" { value = module.example-bucket }
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0, < 6.0 |
 
 ## Providers
