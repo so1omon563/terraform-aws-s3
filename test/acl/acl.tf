@@ -1,11 +1,25 @@
+terraform {
+  required_version = ">= 1.7"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 4.0, < 6.0"
+    }
+  }
+}
+
 variable "name" {
+  type    = string
   default = "basic-usage-default-s3"
 }
 variable "bucket_prefix" {
+  type    = string
   default = "acl-test"
 }
 
 variable "tags" {
+  type = map(string)
   default = {
     example = "true"
   }
