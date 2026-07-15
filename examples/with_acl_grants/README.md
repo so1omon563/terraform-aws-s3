@@ -9,6 +9,17 @@ Example shows using Default Tags in the provider as well as passing additional t
 ## Examples
 
 ```hcl
+terraform {
+  required_version = ">= 1.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 4.0, < 6.0"
+    }
+  }
+}
+
 data "aws_canonical_user_id" "current" {}
 
 module "acl-s3" {
@@ -43,13 +54,16 @@ output "acl-s3" { value = module.acl-s3 }
 
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0, < 6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.35.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0, < 6.0 |
 
 ## Modules
 
