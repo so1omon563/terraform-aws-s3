@@ -42,8 +42,9 @@ locals {
 module "generic-s3" {
   source = "../../"
 
-  name = var.name
-  tags = var.tags
+  name                         = var.name
+  access_control_policy_grants = tolist([])
+  tags                         = var.tags
 }
 output "generic-s3" { value = module.generic-s3 }
 

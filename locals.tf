@@ -9,7 +9,7 @@ locals {
   }
   encryption = merge(local.encryption_defaults, var.encryption)
 
-  access_control_policy_grants = var.access_control_policy_grants != [] ? { enabled = var.access_control_policy_grants } : {}
+  access_control_policy_grants = length(var.access_control_policy_grants) > 0 ? { enabled = var.access_control_policy_grants } : {}
   accelerate_status            = var.accelerate_status != null ? { enabled = var.accelerate_status } : {}
   bucket_policy                = var.bucket_policy != null ? { enabled = var.bucket_policy } : {}
   canned_acl                   = var.canned_acl != null ? { enabled = var.canned_acl } : {}
