@@ -66,6 +66,6 @@ run "verify_basic_usage_s3_outputs_plan" {
   }
   assert {
     condition     = module.generic-s3.access_control_policy_module == {}
-    error_message = "Access Control Policy does not match expected result."
+    error_message = "A typed empty grant list should not create an Access Control Policy module."
   }
 }
