@@ -22,6 +22,7 @@ resource "aws_s3_object" "object" {
   content_encoding    = var.content_encoding
   content_language    = var.content_language
   content_type        = var.content_type
+  website_redirect    = var.website_redirect
 
   tags = local.tags
 }
