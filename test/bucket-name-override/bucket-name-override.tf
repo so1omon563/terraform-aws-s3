@@ -30,6 +30,8 @@ provider "aws" {
 }
 
 locals {
+  # Consumed by bucket-name-override.tftest.hcl, which TFLint does not trace.
+  # tflint-ignore: terraform_unused_declarations
   bucket_name = var.bucket_name_override
 }
 
@@ -37,7 +39,7 @@ locals {
 module "generic-s3-override" {
   source = "../../"
 
-  tags                 = { example = "true" }
+  tags                 = var.tags
   bucket_name_override = var.bucket_name_override
 }
 output "generic-s3-override" { value = module.generic-s3-override }

@@ -1,5 +1,6 @@
 resource "aws_s3_bucket_cors_configuration" "cors" {
-  bucket = var.bucket
+  bucket                = var.bucket
+  expected_bucket_owner = var.expected_bucket_owner
 
   dynamic "cors_rule" {
     for_each = var.cors_rules == null ? [] : var.cors_rules

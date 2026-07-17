@@ -38,8 +38,10 @@ data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
 locals {
-  region      = data.aws_region.current.id
-  account_id  = data.aws_caller_identity.current.account_id
+  region     = data.aws_region.current.id
+  account_id = data.aws_caller_identity.current.account_id
+  # Consumed by bucket-prefix.tftest.hcl, which TFLint does not trace.
+  # tflint-ignore: terraform_unused_declarations
   bucket_name = format("%s-%s-%s-%s", var.name, var.bucket_prefix, local.region, local.account_id)
 }
 #tfsec:ignore:AWS002 Not logging by default. Tests verify that logging is not enabled.
