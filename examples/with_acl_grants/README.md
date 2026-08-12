@@ -15,7 +15,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 4.0, < 6.0"
+      version = ">= 4.0"
     }
   }
 }
@@ -55,26 +55,26 @@ output "acl-s3" { value = module.acl-s3 }
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0, < 6.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_acl-s3"></a> [acl-s3](#module\_acl-s3) | so1omon563/s3/aws | 4.0.0 |
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_canonical_user_id.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/canonical_user_id) | data source |
 
 ## Inputs
@@ -84,8 +84,7 @@ No inputs.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_acl-s3"></a> [acl-s3](#output\_acl-s3) | n/a |
-
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

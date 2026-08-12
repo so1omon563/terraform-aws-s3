@@ -4,7 +4,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 4.0, < 6.0"
+      version = ">= 4.0"
     }
   }
 }
@@ -38,7 +38,7 @@ data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
 locals {
-  region     = data.aws_region.current.id
+  region     = data.aws_region.current.region
   account_id = data.aws_caller_identity.current.account_id
   # Consumed by bucket-prefix.tftest.hcl, which TFLint does not trace.
   # tflint-ignore: terraform_unused_declarations

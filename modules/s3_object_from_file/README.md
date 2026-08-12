@@ -17,15 +17,15 @@ Auto-generated technical documentation is created using [`terraform-docs`](https
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0, < 6.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.39.1 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
 
 ## Modules
 
@@ -34,13 +34,13 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_s3_object.object](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object) | resource |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_bucket"></a> [bucket](#input\_bucket) | Name of the bucket to place the file in. Alternatively, an S3 access point ARN can be specified. | `string` | n/a | yes |
 | <a name="input_bucket_key_enabled"></a> [bucket\_key\_enabled](#input\_bucket\_key\_enabled) | Whether or not to use [Amazon S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html) for SSE-KMS. | `bool` | `false` | no |
 | <a name="input_cache_control"></a> [cache\_control](#input\_cache\_control) | Specifies caching behavior along the request/reply chain Read [w3c cache\_control](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9) for further details. | `string` | `null` | no |
@@ -64,8 +64,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_bucket-object"></a> [bucket-object](#output\_bucket-object) | A map of properties for the created object |
-
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

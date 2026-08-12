@@ -15,7 +15,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 4.0, < 6.0"
+      version = ">= 4.0"
     }
   }
 }
@@ -61,9 +61,9 @@ output "example-bucket" { value = module.example-bucket }
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0, < 6.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
@@ -72,7 +72,7 @@ No providers.
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_example-bucket"></a> [example-bucket](#module\_example-bucket) | so1omon563/s3/aws | 4.0.0 |
 | <a name="module_example-logging-bucket"></a> [example-logging-bucket](#module\_example-logging-bucket) | so1omon563/s3/aws | 4.0.0 |
 
@@ -87,9 +87,8 @@ No inputs.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_example-bucket"></a> [example-bucket](#output\_example-bucket) | n/a |
 | <a name="output_example-logging-bucket"></a> [example-logging-bucket](#output\_example-logging-bucket) | n/a |
-
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

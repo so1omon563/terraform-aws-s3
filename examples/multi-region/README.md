@@ -15,7 +15,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 4.0, < 6.0"
+      version = ">= 4.0"
     }
   }
 }
@@ -74,9 +74,9 @@ output "example-generic-s3-west" { value = module.example-generic-s3-west }
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0, < 6.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
@@ -85,7 +85,7 @@ No providers.
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_example-generic-s3-east"></a> [example-generic-s3-east](#module\_example-generic-s3-east) | so1omon563/s3/aws | 4.0.0 |
 | <a name="module_example-generic-s3-west"></a> [example-generic-s3-west](#module\_example-generic-s3-west) | so1omon563/s3/aws | 4.0.0 |
 
@@ -100,9 +100,8 @@ No inputs.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_example-generic-s3-east"></a> [example-generic-s3-east](#output\_example-generic-s3-east) | n/a |
 | <a name="output_example-generic-s3-west"></a> [example-generic-s3-west](#output\_example-generic-s3-west) | n/a |
-
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
