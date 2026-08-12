@@ -39,7 +39,7 @@ data "aws_region" "current" {}
 data "aws_canonical_user_id" "current" {}
 
 locals {
-  region     = data.aws_region.current.region
+  region     = lookup(tomap(data.aws_region.current), "region", lookup(tomap(data.aws_region.current), "name", null))
   account_id = data.aws_caller_identity.current.account_id
   # Consumed by acl.tftest.hcl, which TFLint does not trace.
   # tflint-ignore: terraform_unused_declarations

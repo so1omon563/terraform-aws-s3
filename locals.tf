@@ -1,6 +1,6 @@
 locals {
   tags       = var.tags
-  region     = data.aws_region.current.region
+  region     = lookup(tomap(data.aws_region.current), "region", lookup(tomap(data.aws_region.current), "name", null))
   account_id = data.aws_caller_identity.current.account_id
 
   encryption_defaults = {
