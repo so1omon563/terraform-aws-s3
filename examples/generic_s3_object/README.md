@@ -15,7 +15,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 4.0, < 6.0"
+      version = ">= 4.0"
     }
   }
 }
@@ -58,9 +58,9 @@ output "example-generic-object" { value = module.example-generic-object }
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0, < 6.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
 
 ## Providers
 
@@ -69,7 +69,7 @@ No providers.
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_example-generic-object"></a> [example-generic-object](#module\_example-generic-object) | so1omon563/s3/aws//modules/s3_object_from_file | 3.0.0 |
 | <a name="module_example-generic-s3"></a> [example-generic-s3](#module\_example-generic-s3) | so1omon563/s3/aws | 4.0.0 |
 
@@ -84,9 +84,8 @@ No inputs.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_example-generic-object"></a> [example-generic-object](#output\_example-generic-object) | n/a |
 | <a name="output_example-generic-s3"></a> [example-generic-s3](#output\_example-generic-s3) | n/a |
-
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
